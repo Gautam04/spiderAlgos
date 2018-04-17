@@ -18,20 +18,16 @@ struct team
 
 struct match
 {
-	string team1;
-	string team2;
-	int score1;
-	int score2;
-	float overs1;
-	float overs2;
-	bool rainAffected;
+	char team1[5];
+	char team2[5];
 };
 
 
 int main()
 {
 	map<string,team> teams;
-	string teamNames[]={"CSK","MI","KKR","RCB","DD","KXIP","SRH","RR"};
+	
+	char teamNames[][5]={"CSK","MI","KKR","RCB","DD","KXIP","SRH","RR"};
 	for(int i=0;i<numTeams;++i)
 	{
 		team temp;
@@ -43,8 +39,15 @@ int main()
 		temp.loss=0;
 		teams[teamNames[i]]=temp;
 	}
-	/*while(true)
+	fstream f;
+	f.open("schedule.dat",ios::binary|ios::in);
+	while(!f.eof())
 	{
-
-	}*/
+		match m;
+		f.read((char*)&m,sizeof(m));
+		cout<<m.team
+		cout<<endl;
+	}
+	f.close();
+	
 }
