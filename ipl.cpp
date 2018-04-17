@@ -45,7 +45,7 @@ int main()
 	{
 		match m;
 		f.read((char*)&m,sizeof(m));
-		cout<<m.team
+		cout<<m.team1<<" v "<<m.team2;
 		cout<<endl;
 	}
 	f.close();
