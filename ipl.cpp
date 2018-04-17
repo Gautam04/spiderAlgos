@@ -30,16 +30,21 @@ struct match
 
 int main()
 {
+	map<string,team> teams;
 	string teamNames[]={"CSK","MI","KKR","RCB","DD","KXIP","SRH","RR"};
-	team teams[numTeams];
 	for(int i=0;i<numTeams;++i)
 	{
-		teams[i].name = teamNames[i];
-		teams[i].rr=0;
-		teams[i].scored=0;
-		teams[i].against=0;
-		teams[i].points=0;
-		teams[i].wins=0;
-		teams[i].loss=0;
+		team temp;
+		temp.rr=0;
+		temp.scored=0;
+		temp.against=0;
+		temp.points=0;
+		temp.wins=0;
+		temp.loss=0;
+		teams[teamNames[i]]=temp;
 	}
+	/*while(true)
+	{
+
+	}*/
 }
