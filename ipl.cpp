@@ -4,6 +4,7 @@
 using namespace std;
 #define numTeams 8
 
+int numMatches=56;
 
 struct team
 {
@@ -16,6 +17,7 @@ struct team
 	int loss;
 	float oversPlayed;
 	float oversAgainst;
+	map<string,int> remaining;
 };
 
 struct match
@@ -42,6 +44,13 @@ int main()
 		temp.loss=0;
 		temp.oversPlayed=0;
 		temp.oversAgainst=0;
+		for(int j=0;j<numTeams;++j)
+		{
+			if(teamNames[j]!=teamNames[i])
+			{
+				temp.remaining[teamNames[j]]=2;
+			}
+		}
 		teams[teamNames[i]]=temp;
 	}
 	fstream f;
@@ -73,6 +82,9 @@ int main()
 		teams[t2].oversAgainst+=20;
 		teams[t1].rr=teams[t1].scored/teams[t1].oversPlayed -teams[t1].against/teams[t1].oversAgainst; 
 		teams[t2].rr=teams[t2].scored/teams[t2].oversPlayed -teams[t2].against/teams[t2].oversAgainst;
+		teams[t2].remaining[t1]-=1;
+		teams[t1].remaining[t2]-=1;
+		numMatches--;
 		if(score1>score2)
 		{
 			teams[t1].wins++;
@@ -87,6 +99,7 @@ int main()
 		}
 		cout<<endl<<t1<<"  Points:"<<teams[t1].points<<"   NRR:"<<teams[t1].rr;
 		cout<<endl<<t2<<"  Points:"<<teams[t2].points<<"   NRR:"<<teams[t2].rr;
+		cout<<endl<<"Matches remainig between the two teams : "<<teams[t1].remaining[t2];
 
 	}
 	f.close();
