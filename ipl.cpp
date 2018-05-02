@@ -150,11 +150,27 @@ bool flow(string t)
 	}
 	else
 	{
-		for(int k=0;k<3;++k)
+		int k;
+		/*for(int k=0;k<3;++k)
 		{
 			if(temp[k].wins>maxWins)
 			{
 				sum+=temp[k].wins;
+			}
+		}*/
+		
+		for(k=0;k<3;++k)
+		{
+			if(temp[k].wins<=maxWins)
+				break;
+		}
+		
+		for(int z=0;z<=k;++z)
+		{
+			sum+=temp[z].wins;
+			for(int y=z+1;y<=k;++y)
+			{
+					sum-=temp[z].remaining[temp[y].name];
 			}
 		}
 	}
