@@ -127,6 +127,7 @@ int maxFlow(vector<pip> capacity, int source, int sink, int n)
 bool flow(string t)
 {
 	vector<team> temp;
+	int sum=0;
 	vector<pip> edges;
 	vector<vector<int> > residual; 
 	int i,src,dest,gameNode;
@@ -147,14 +148,21 @@ bool flow(string t)
 	{
 		return false;
 	}
-	//residual[src][gameNode]=numMatches;
+	else
+	{
+		for(int k=0;k<3;++k)
+		{
+			if(temp[k].wins>maxWins)
+			{
+				sum+=temp[k].wins;
+			}
+		}
+	}
+
 	for(int j=0;j<numTeams;++j)
 	{
 		for(int k=j+1;k<numTeams;++k)
 		{
-			/*residual[src][gameNode]=teams[teamNames[i]].remaining[teamNames[j]];
-			residual[gameNode][vertex[teamNames[j]]]=1000;
-			residual[gameNode][vertex[teamNames[k]]]=1000;*/
 			edges.push_back(pip(pii(src,gameNode),teams[teamNames[j]].remaining[teamNames[k]]));
 			edges.push_back(pip(pii(gameNode,vertex[teamNames[j]]),1000));
 			edges.push_back(pip(pii(gameNode,vertex[teamNames[k]]),1000));
@@ -163,11 +171,10 @@ bool flow(string t)
 	}
 	for(i=0;i<numTeams;i++)
 	{
-		//residual[vertex[teamNames[i]]][dest]=maxWins - teams[teamNames[i]].wins;
 		edges.push_back(pip(pii(vertex[teamNames[i]],dest),maxWins-teams[teamNames[i]].wins));
 	}
 	int currentCap = maxFlow(edges, src, dest, gameNode);
-	return currentCap>=numMatches;
+	return currentCap>=(numMatches-sum);
 
 	
 }
